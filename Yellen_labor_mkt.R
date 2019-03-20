@@ -22,6 +22,9 @@ yellen_labor_mkt_symbols <- c(
 # get data from this date
 START = "2006-01-01"
 
+# set xlim for plot
+XLIM <- c(as.Date("2008-01-01"), as.Date("2019-12-01"))
+
 # get data from FRED
 labor_mkt_m <- yellen_labor_mkt_symbols %>% 
   tidyquant::tq_get(get = "economic.data", from = START)
@@ -56,21 +59,27 @@ wage_tracker <- read_csv("data/wage-growth-data.csv", na = c(".", ""),
 names(wage_tracker) <- c("date", "price")
 wage_tracker$symbol <- "WAGETR"
 wage_tracker <- wage_tracker %>% 
-  filter(date >= as.Date(START))
+  filter(date >= START)
 
-# combine transformed data, and change symbol order
+# combine transformed data
 labor_mkt <- labor_mkt_m %>% 
   filter(!(symbol %in% c("PAYEMS", "PCEPILFE", "CEU0500000003", "ECIALLCIV"))) %>% 
   bind_rows(payems) %>% 
   bind_rows(pce) %>% 
   bind_rows(ceu) %>% 
   bind_rows(eci) %>% 
-  bind_rows(wage_tracker) %>% 
-  mutate(symbol = fct_relevel(symbol,
-                              "UNRATE", "LNS13025703", "U6RATE", "CIVPART",
-                              "JTSJOR", "JTSLDR", "JTSQUR", "JTSHIR",
-                              "PAYEMS", "CEU0500000003", "ECIALLCIV", "WAGETR",
-                              "PCEPILFE"),
+  bind_rows(wage_tracker)
+
+# symbol from chr to fctr
+labor_mkt$symbol <- factor(labor_mkt$symbol,
+                           levels = c("UNRATE", "LNS13025703", "U6RATE", "CIVPART",
+                                      "JTSJOR", "JTSLDR", "JTSQUR", "JTSHIR",
+                                      "PAYEMS", "CEU0500000003", "ECIALLCIV", "WAGETR",
+                                      "PCEPILFE"))
+
+# recode symbol
+labor_mkt <- labor_mkt %>% 
+  mutate(
          symbol = fct_recode(symbol,
                              "Unemployment rate" = "UNRATE",
                              "Long-term unemployed share" = "LNS13025703",
@@ -88,13 +97,18 @@ labor_mkt <- labor_mkt_m %>%
                              )
            )
 
+# prepare for plot month
+Sys.setlocale(category = "LC_TIME", locale = "C")
+
 # plot with label only on the latest data
 labor_mkt %>% 
   group_by(symbol) %>% 
   mutate(
     label = if_else(date == max(date), 
-                    paste(as.character(date), as.character(round(price, 2))
-                          , sep = "\n"), NA_character_)
+                    paste(lubridate::month(date, label = TRUE, abbr = TRUE),
+                          as.character(round(price, 2))
+                          , sep = " "),
+                    NA_character_)
   ) %>% 
   ungroup() %>% 
   ggplot(aes(x = date, y = price)) + 
@@ -102,9 +116,9 @@ labor_mkt %>%
   facet_wrap(~ symbol, ncol = 4, scales = "free_y") +
   geom_text(aes(label = label), na.rm = TRUE,
             hjust = 1, vjust = 0) +
-  coord_cartesian(xlim = c(as.Date("2008-01-01"), as.Date("2019-01-01"))) +
+  coord_cartesian(xlim = XLIM) +
   labs(
-    title = "Yellen's labor market dashboard",
+    title = "Yellen's US labor market dashboard",
     x = "",
     y = "")
 
