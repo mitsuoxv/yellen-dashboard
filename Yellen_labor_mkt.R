@@ -53,10 +53,18 @@ eci <- labor_mkt_m %>%
 
 # Atlanta Fed Wage Trucker
 # source: https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx
-wage_tracker <- read_csv("data/wage-growth-data.csv", na = c(".", ""),
-                         col_types = cols(X1 = col_date(format = "%Y/%m/%d"),
-                                          `Unweighted Overall` = col_double()))
-names(wage_tracker) <- c("date", "price")
+url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
+
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+
+res <- read_excel(tf, col_names = FALSE, na = c(".", ""), skip = 2)
+
+names(res)[1:2] <- c("date", "price")
+res$date <- as.Date(res$date)
+
+wage_tracker <- res %>% 
+  select(date, price)
+  
 wage_tracker$symbol <- "WAGETR"
 wage_tracker <- wage_tracker %>% 
   filter(date >= START)

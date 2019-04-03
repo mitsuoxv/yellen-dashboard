@@ -1,5 +1,7 @@
 # libraries
 library(tidyquant)
+library(httr)
+library(readxl)
 
 # self-made tq functions
 tq_diff <- function(df, n = 1) {
