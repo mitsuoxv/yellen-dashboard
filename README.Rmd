@@ -1,23 +1,29 @@
 ---
 title: "Yellen dashboard"
 author: "Mitsuo Shiota"
-date: "2019-04-10"
-output: github_document
+date: "2019-04-11"
+output: 
+  github_document:
+    toc: TRUE
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 12 plus 1 time-series data for the dashboard
+## Summary
 
-I read the bloomberg article, "Yellen’s Labor Market Dashboard" (https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/), and found 12 time-series data, central bankers are supposed to watch. I decided to replicate this dashboard. I added PCE, excl food and energy, to see price stability.
+[Dashboard in pdf](output/Yellen.pdf)
+
+This is a pilot project to utilize R language and tidyquant package for economic analysis.
+
+I read the bloomberg article, ["Yellen’s Labor Market Dashboard"](https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/), and found 12 time-series data, central bankers are supposed to watch. I decided to replicate this dashboard. I added PCE, excl food and energy, to see price stability.
 
 ## Libraries
 
-This is a pilot project to utilize tidyquant package for economic analysis. I use tq_get function to get tidy data from Federal Reserve Bank of St. Louis (FRED) https://fred.stlouisfed.org/.
+I use tq_get function from tidyquant package to get tidy data from [Federal Reserve Bank of St. Louis (FRED)](https://fred.stlouisfed.org/). And some of my self-made functions depend on tidyquant package.
 
-I use GET function from httr package to get an excel file from Federal Reserve Bank of Atlanta (Wage Growth Tracker) https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx, and readxl package to read excel data. 
+I use GET function from httr package to get an excel file from [Federal Reserve Bank of Atlanta (Wage Growth Tracker)](https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx), and readxl package to read excel data. 
 
 ```{r libraries, message=FALSE}
 library(tidyquant)
@@ -28,7 +34,7 @@ library(readxl)
 
 ## Self-made functions
 
-tidyquant package assumes tidy data, basically a dataframe of long format, of 3 columns: date, symbol and price. These column names come from stock price analysis. Based on this assumption, I have made functions to transform values in price column.
+tidyquant package assumes tidy data, basically a data frame of long format, of 3 columns: "date", "symbol" and "price." These column names come from stock price analysis. Based on this assumption, I have made functions to transform values in price column.
 
 ### tq_diff function to get differences
 
@@ -93,7 +99,7 @@ tq_gr <- function(df, n = 12, annualize = 1) {
 
 ## Get data from FRED
 
-At https://fred.stlouisfed.org/, I searched data, and got symbols from the parantheses in the title. For example, if the title is "Japan / U.S. Foreign Exchange Rate (AEXJPUS) ", "AEXJPUS" is the symbol.
+At [FRED](https://fred.stlouisfed.org/), I searched data, and got symbols from the parentheses in the title. For example, if the title is "Japan / U.S. Foreign Exchange Rate (AEXJPUS) ", "AEXJPUS" is the symbol.
 
 ```{r FRED_symbols}
 yellen_labor_mkt_symbols <- c(
@@ -166,9 +172,9 @@ eci <- labor_mkt_m %>%
 
 ## Get data from Atlanta Fed Wage Growth Trucker
 
-There is one datum I can't get from FRED, that is Atlanta Fed Wage Tracker, https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx. Unfortunately I could not find API to get data. So, initially I manually downloaded an excel file,  transformed it into a csv file, and used read_csv to read.
+There is one datum I can't get from [FRED](https://fred.stlouisfed.org/), that is [Atlanta Fed Wage Tracker](https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx). Unfortunately I could not find API to get data. So, initially I manually downloaded an excel file,  transformed it into a csv file, and used read_csv to read.
 
-Later, I found "Read Excel file from a URL using the readxl package" in StackOverflow (https://stackoverflow.com/questions/41368628/read-excel-file-from-a-url-using-the-readxl-package). Now, I automate the reading process, though it is awkward. If Atlanta Fed changes something, this part will fail.
+Later, I found ["Read Excel file from a URL using the readxl package"](https://stackoverflow.com/questions/41368628/read-excel-file-from-a-url-using-the-readxl-package) in StackOverflow. Now, I automate the reading process, though it is awkward. If Atlanta Fed changes something, this part will fail.
 
 ```{r Atlanta, results="hide", message=FALSE}
 url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
