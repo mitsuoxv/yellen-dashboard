@@ -146,6 +146,7 @@ yellen_labor_mkt_symbols <- c(
   "CEU0500000003", # Average hourly earnings, total private
   "ECIALLCIV", # Employment cost index, all civilians, quaterly
   "CIVPART", # Labor force participation rate
+  "LREM25TTUSM156S", # Employment Rate: Aged 25-54: All Persons
   "PCEPILFE" # PCE excluding food and energy
   ) 
 ```
@@ -263,7 +264,7 @@ labor_mkt$symbol <- factor(labor_mkt$symbol,
                            levels = c("UNRATE", "LNS13025703", "U6RATE", "CIVPART",
                                       "JTSJOR", "JTSLDR", "JTSQUR", "JTSHIR",
                                       "PAYEMS", "CEU0500000003", "ECIALLCIV", "WAGETR",
-                                      "PCEPILFE"))
+                                      "LREM25TTUSM156S", "PCEPILFE"))
 ```
 
 I recode symbol to make them more readable in the plot.
@@ -284,6 +285,7 @@ labor_mkt <- labor_mkt %>%
                              "Avg hourly earnings, YoY, 3 mo avg" = "CEU0500000003",
                              "Employment cost index, YoY, quarterly" = "ECIALLCIV",
                              "Atlanta Fed wage tracker, YoY, 3 mo avg" = "WAGETR",
+                             "Employment Rate: Aged 25-54" = "LREM25TTUSM156S",
                              "PCE excluding food and energy, YoY" = "PCEPILFE"
                              )
            )

@@ -1,7 +1,7 @@
 # First execute Libraries.R
 # for tidyverse, other libraries, and self-made utility functions
 
-source(Libraries.R)
+source("Libraries.R")
 
 # Yellen's labor market dashboard
 # note: https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/
@@ -138,5 +138,5 @@ labor_mkt %>%
     y = "")
 
 # save pdf in (nearly) A4 format wide
-ggsave(filename = "output/Yellen.pdf",
-       width = 10, height = 8, units = "in", dpi = 300)
+# ggsave(filename = "output/Yellen.pdf",
+#        width = 10, height = 8, units = "in", dpi = 300)
