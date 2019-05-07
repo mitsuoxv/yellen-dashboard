@@ -1,6 +1,8 @@
 # First execute Libraries.R
 # for tidyverse, other libraries, and self-made utility functions
 
+source(Libraries.R)
+
 # Yellen's labor market dashboard
 # note: https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/
 # symbols in FRED
@@ -28,6 +30,11 @@ XLIM <- c(as.Date("2008-01-01"), as.Date("2019-12-01"))
 # get data from FRED
 labor_mkt_m <- yellen_labor_mkt_symbols %>% 
   tidyquant::tq_get(get = "economic.data", from = START)
+
+# write csv for Excel in Windows 10, Japanese version
+labor_mkt_m %>% 
+  spread(key = symbol, value = price) %>% 
+  write.csv("output/labor_mkt_m.csv", row.names = FALSE, fileEncoding = "CP932")
 
 # transform Non-farm payrolls, total to differences, 3 month moving average
 payems <- labor_mkt_m %>% 

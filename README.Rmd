@@ -1,15 +1,18 @@
 ---
 title: "Yellen dashboard"
 author: "Mitsuo Shiota"
-date: "2019-04-11"
+date: "2019-03-19"
 output: 
   github_document:
     toc: TRUE
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+Updated: `r Sys.Date()`
 
 ## Summary
 
@@ -259,7 +262,7 @@ Sys.setlocale(category = "LC_TIME", locale = "C")
 
 OK. Let us plot. I add the labels at the latest. Some of them are put ugly, but useful enough.  
 
-```{r plot, fig.height=16, fig.width=8}
+```{r plot,fig.width=8,  fig.height=16}
 labor_mkt %>% 
   group_by(symbol) %>% 
   mutate(
@@ -280,6 +283,14 @@ labor_mkt %>%
     title = "Yellen's US labor market dashboard",
     x = "",
     y = "")
+
+```
+
+Save plot in output/Yellen.pdf.
+
+```{r plot_save}
+ggsave(filename = "output/Yellen.pdf",
+       width = 8, height = 16, units = "in", dpi = 300)
 
 ```
 
