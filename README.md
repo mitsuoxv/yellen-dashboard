@@ -20,7 +20,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2019-05-07
+Updated: 2019-06-10
 
 ## Summary
 
@@ -33,7 +33,9 @@ I read the bloomberg article, [“Yellen’s Labor Market
 Dashboard”](https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/),
 and found 12 time-series data, central bankers are supposed to watch. I
 decided to replicate this dashboard. I added PCE, excl food and energy,
-to see price stability.
+to see price stability. Update: I also added prime age employment rate,
+as it is said to be more closely related to wage than headline
+(un)employment rate.
 
 ## Libraries
 
