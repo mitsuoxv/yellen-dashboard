@@ -1,7 +1,9 @@
-# First execute Libraries.R
-# for tidyverse, other libraries, and self-made utility functions
+# Libraries
+library(tidyverse)
 
-source("Libraries.R")
+# self-made package
+devtools::install('../tqr')
+library(tqr)
 
 # Yellen's labor market dashboard
 # note: https://www.bloomberg.com/graphics/2015-yellens-labor-market-dashboard/
@@ -36,6 +38,10 @@ labor_mkt_m %>%
   spread(key = symbol, value = price) %>% 
   write.csv("output/labor_mkt_m.csv", row.names = FALSE, fileEncoding = "CP932")
 
+labor_mkt_m <- read_csv("output/labor_mkt_m.csv")
+labor_mkt_m <- labor_mkt_m %>% 
+  tq_tidy()
+
 # transform Non-farm payrolls, total to differences, 3 month moving average
 payems <- labor_mkt_m %>% 
   filter(symbol == "PAYEMS") %>% 
@@ -62,9 +68,9 @@ eci <- labor_mkt_m %>%
 # source: https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx
 url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
 
-GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+httr::GET(url, httr::write_disk(tf <- tempfile(fileext = ".xlsx")))
 
-res <- read_excel(tf, col_names = FALSE, na = c(".", ""), skip = 2)
+res <- readxl::read_excel(tf, col_names = FALSE, na = c(".", ""), skip = 2)
 
 names(res)[1:2] <- c("date", "price")
 res$date <- as.Date(res$date)

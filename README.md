@@ -5,13 +5,7 @@ Mitsuo Shiota
 
   - [Summary](#summary)
   - [Libraries](#libraries)
-  - [Self-made functions](#self-made-functions)
-      - [tq\_diff function to get
-        differences](#tq_diff-function-to-get-differences)
-      - [tq\_ma function to get moving
-        averages](#tq_ma-function-to-get-moving-averages)
-      - [tq\_gr function to get growth
-        rates](#tq_gr-function-to-get-growth-rates)
+  - [Self-made tqr package](#self-made-tqr-package)
   - [Get data from FRED](#get-data-from-fred)
   - [Transform data](#transform-data)
   - [Get data from Atlanta Fed Wage Growth
@@ -20,7 +14,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2019-06-10
+Updated: 2019-07-19
 
 ## Summary
 
@@ -55,77 +49,17 @@ library(httr)
 library(readxl)
 ```
 
-## Self-made functions
+## Self-made tqr package
 
 tidyquant package assumes tidy data, basically a data frame of long
 format, of 3 columns: “date”, “symbol” and “price.” These column names
-come from stock price analysis. Based on this assumption, I have made
-functions to transform values in price column.
-
-### tq\_diff function to get differences
-
-tq\_diff function puts differences from n period ago in price column. I
-set the default value of parameter n as 1. In monthly data, tq\_diff(df)
-gets differences from the prior month.
+come from stock price analysis. I use self-made [tqr
+package](https://github.com/mitsuoxv/tqr) to transform values in price
+column.
 
 ``` r
-tq_diff <- function(df, n = 1) {
-  df %>% 
-    group_by(symbol) %>% 
-    mutate(
-      price_lag = lag(price, n),
-      price = price - price_lag
-    ) %>% 
-    ungroup() %>% 
-    select(-price_lag)
-}
-```
-
-### tq\_ma function to get moving averages
-
-tq\_ma function puts n period moving averages in price column. I set the
-default value of parameter n as 3. In monthly data, tq\_ma(df) gets 3
-month moving average.
-
-``` r
-tq_ma <- function(df, n = 3) {
-  df %>% 
-    group_by(symbol) %>% 
-    tidyquant::tq_mutate(
-      select = price,
-      mutate_fun = SMA,
-      n = n
-    ) %>% 
-    ungroup() %>% 
-    rename(
-      foo = price,
-      price = SMA
-    ) %>% 
-    select(-foo)
-}
-```
-
-### tq\_gr function to get growth rates
-
-tq\_gr function puts growth rates from n period ago in price column. I
-set the default value of parameter n as 12. In monthly data, tq\_gr(df)
-gets year-over-year growth rates.
-
-Parameter annualize is used to power growth rates. In quarterly data,
-like seasonally-adjusted GDP, set n = 1 and annualize = 4, and you can
-get annualized growth rates.
-
-``` r
-tq_gr <- function(df, n = 12, annualize = 1) {
-  df %>% 
-    group_by(symbol) %>% 
-    mutate(
-      price_lag = lag(price, n),
-      price = (price / price_lag)^annualize * 100 - 100
-    ) %>% 
-    ungroup() %>% 
-    select(-price_lag)
-}
+library(tsibble)
+library(tqr)
 ```
 
 ## Get data from FRED
@@ -166,11 +100,30 @@ Now I can use tq\_get function from tidyquant package to download data
 from FRED.
 
 ``` r
-labor_mkt_m <- yellen_labor_mkt_symbols %>% 
+labor_mkt_all <- yellen_labor_mkt_symbols %>% 
   tq_get(get = "economic.data", from = START)
 ```
 
 ## Transform data
+
+Employment cost index is the only quarterly data, and all the others are
+monthly data. I transform Employment cost index to year-over-year growth
+rates, and all the others to tsibble (tbl\_ts class).
+
+``` r
+# transform Employment cost index, quarterly data to YoY
+eci <- labor_mkt_all %>% 
+  filter(symbol == "ECIALLCIV") %>% 
+  mutate(date = yearquarter(date)) %>% 
+  as_tsibble(key = "symbol", index = "date") %>% 
+  tq_gr(n = 4)
+
+# Others are monthly data, transformed to tsibble
+labor_mkt_m <- labor_mkt_all %>% 
+  filter(symbol != "ECIALLCIV") %>% 
+  mutate(date = yearmonth(date)) %>% 
+  as_tsibble(key = "symbol", index = "date")
+```
 
 Non-farm payrolls requires the most complicated transformation. I have
 to take differences from the prior month, and make them 3 month moving
@@ -185,9 +138,8 @@ payems <- labor_mkt_m %>%
   tq_ma(n = 3)
 ```
 
-I transform PCE to year-over-year growth rates, average hourly earnings
-to year-over-year growth rates and 3 month moving average, and
-employment cost index, quarterly data, to year-over-year growth rates.
+I transform PCE to year-over-year growth rates, and average hourly
+earnings to year-over-year growth rates and 3 month moving average.
 
 ``` r
 # transform PCE to growth rates, YoY
@@ -200,11 +152,6 @@ ceu <- labor_mkt_m %>%
   filter(symbol == "CEU0500000003") %>% 
   tq_gr(n = 12) %>% 
   tq_ma(n = 3)
-
-# transform Employment cost index, quarterly data to YoY
-eci <- labor_mkt_m %>% 
-  filter(symbol == "ECIALLCIV") %>% 
-  tq_gr(n = 4)
 ```
 
 ## Get data from Atlanta Fed Wage Growth Trucker
@@ -245,15 +192,14 @@ wage_tracker <- wage_tracker %>%
 ## Combine data
 
 I combine transformed data with not-transformed data, and get tidy data.
+As `bind_rows` function drops index necessary to tbl\_ts class, I have
+to transform tsibble to tibble.
 
 ``` r
 labor_mkt <- labor_mkt_m %>% 
-  filter(!(symbol %in% c("PAYEMS", "PCEPILFE", "CEU0500000003", "ECIALLCIV"))) %>% 
-  bind_rows(payems) %>% 
-  bind_rows(pce) %>% 
-  bind_rows(ceu) %>% 
-  bind_rows(eci) %>% 
-  bind_rows(wage_tracker)
+  filter(!(symbol %in% c("PAYEMS", "PCEPILFE", "CEU0500000003"))) %>% 
+  bind_rows(payems, pce, ceu, eci, wage_tracker) %>% 
+  as_tibble()
 ```
 
 ## Prepare for the plot
