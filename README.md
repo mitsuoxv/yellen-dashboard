@@ -14,7 +14,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2019-07-19
+Updated: 2019-08-05
 
 ## Summary
 
@@ -127,8 +127,7 @@ labor_mkt_m <- labor_mkt_all %>%
 
 Non-farm payrolls requires the most complicated transformation. I have
 to take differences from the prior month, and make them 3 month moving
-average. Fortunately pipe operator helps
-me.
+average. Fortunately pipe operator helps me.
 
 ``` r
 # transform Non-farm payrolls, total to differences, 3 month moving average
@@ -166,8 +165,7 @@ read\_csv to read.
 Later, I found [“Read Excel file from a URL using the readxl
 package”](https://stackoverflow.com/questions/41368628/read-excel-file-from-a-url-using-the-readxl-package)
 in StackOverflow. Now, I automate the reading process, though it is
-awkward. If Atlanta Fed changes something, this part will
-fail.
+awkward. If Atlanta Fed changes something, this part will fail.
 
 ``` r
 url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
