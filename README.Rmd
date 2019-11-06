@@ -30,6 +30,7 @@ I use GET function from httr package to get an excel file from [Federal Reserve 
 
 ```{r libraries, message=FALSE}
 library(tidyquant)
+library(tidyverse)
 library(httr)
 library(readxl)
 
