@@ -14,7 +14,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2019-11-06
+Updated: 2019-12-09
 
 ## Summary
 
@@ -118,11 +118,7 @@ eci <- labor_mkt_all %>%
   mutate(date = yearquarter(date)) %>% 
   as_tsibble(key = "symbol", index = "date") %>% 
   tq_gr(n = 4)
-```
 
-    ## Warning: `.key` is deprecated
-
-``` r
 # Others are monthly data, transformed to tsibble
 labor_mkt_m <- labor_mkt_all %>% 
   filter(symbol != "ECIALLCIV") %>% 
@@ -142,10 +138,6 @@ payems <- labor_mkt_m %>%
   tq_ma(n = 3)
 ```
 
-    ## Warning: `.key` is deprecated
-    
-    ## Warning: `.key` is deprecated
-
 I transform PCE to year-over-year growth rates, and average hourly
 earnings to year-over-year growth rates and 3 month moving average.
 
@@ -154,21 +146,13 @@ earnings to year-over-year growth rates and 3 month moving average.
 pce <- labor_mkt_m %>% 
   filter(symbol == "PCEPILFE") %>% 
   tq_gr(n = 12)
-```
 
-    ## Warning: `.key` is deprecated
-
-``` r
 # transform Average hourly earnings to YoY, 3 ma
 ceu <- labor_mkt_m %>% 
   filter(symbol == "CEU0500000003") %>% 
   tq_gr(n = 12) %>% 
   tq_ma(n = 3)
 ```
-
-    ## Warning: `.key` is deprecated
-    
-    ## Warning: `.key` is deprecated
 
 ## Get data from Atlanta Fed Wage Growth Trucker
 
