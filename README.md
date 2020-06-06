@@ -14,7 +14,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2020-05-11
+Updated: 2020-06-06
 
 ## Summary
 
@@ -117,7 +117,8 @@ eci <- labor_mkt_all %>%
   filter(symbol == "ECIALLCIV") %>% 
   mutate(date = yearquarter(date)) %>% 
   as_tsibble(key = "symbol", index = "date") %>% 
-  tq_gr(n = 4)
+  tq_gr(n = 4) %>% 
+  mutate(date = as.Date(date))
 
 # Others are monthly data, transformed to tsibble
 labor_mkt_m <- labor_mkt_all %>% 
@@ -236,13 +237,6 @@ labor_mkt <- labor_mkt %>%
                              "PCE excluding food and energy, YoY" = "PCEPILFE"
                              )
            )
-```
-
-As I work with the PC, Windows 10, Japanese version, I have to set local
-time locale to display months in English in the plot.
-
-``` r
-Sys.setlocale(category = "LC_TIME", locale = "C")
 ```
 
 ## Dashboard
