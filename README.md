@@ -14,7 +14,7 @@ Mitsuo Shiota
   - [Prepare for the plot](#prepare-for-the-plot)
   - [Dashboard](#dashboard)
 
-Updated: 2020-08-08
+Updated: 2020-09-05
 
 ## Summary
 
@@ -46,6 +46,12 @@ readxl package to read excel data.
 ``` r
 library(tidyquant)
 library(tidyverse)
+```
+
+    ## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
+    ## when loading 'dplyr'
+
+``` r
 library(httr)
 library(readxl)
 ```
