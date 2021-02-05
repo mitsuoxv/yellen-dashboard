@@ -3,18 +3,18 @@ Yellen dashboard
 Mitsuo Shiota
 2019-03-19
 
-  - [Summary](#summary)
-  - [Libraries](#libraries)
-  - [Self-made tqr package](#self-made-tqr-package)
-  - [Get data from FRED](#get-data-from-fred)
-  - [Transform data](#transform-data)
-  - [Get data from Atlanta Fed Wage Growth
+-   [Summary](#summary)
+-   [Libraries](#libraries)
+-   [Self-made tqr package](#self-made-tqr-package)
+-   [Get data from FRED](#get-data-from-fred)
+-   [Transform data](#transform-data)
+-   [Get data from Atlanta Fed Wage Growth
     Trucker](#get-data-from-atlanta-fed-wage-growth-trucker)
-  - [Combine data](#combine-data)
-  - [Prepare for the plot](#prepare-for-the-plot)
-  - [Dashboard](#dashboard)
+-   [Combine data](#combine-data)
+-   [Prepare for the plot](#prepare-for-the-plot)
+-   [Dashboard](#dashboard)
 
-Updated: 2021-01-09
+Updated: 2021-02-06
 
 ## Summary
 
@@ -67,8 +67,7 @@ library(tqr)
 
 At [FRED](https://fred.stlouisfed.org/), I searched data, and got
 symbols from the parentheses in the title. For example, if the title is
-“Japan / U.S. Foreign Exchange Rate (AEXJPUS)”, “AEXJPUS” is the
-symbol.
+“Japan / U.S. Foreign Exchange Rate (AEXJPUS)”, “AEXJPUS” is the symbol.
 
 ``` r
 yellen_labor_mkt_symbols <- c(
@@ -94,7 +93,7 @@ limits, to plot later.
 ``` r
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2020-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2021-12-01"))
 ```
 
 Now I can use tq\_get function from tidyquant package to download data
