@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2021-03-06
+Updated: 2021-04-03
 
 ## Summary
 
@@ -103,6 +103,10 @@ from FRED.
 labor_mkt_all <- yellen_labor_mkt_symbols %>% 
   tq_get(get = "economic.data", from = START)
 ```
+
+    ## Warning: x = 'JTSLDR', get = 'economic.data': Error in getSymbols.FRED(Symbols = "JTSLDR", env = <environment>, verbose = FALSE, : Unable to import "JTSLDR".
+    ## HTTP error 504.
+    ##  Removing JTSLDR.
 
 ## Transform data
 
