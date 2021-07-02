@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2021-06-05
+Updated: 2021-07-03
 
 ## Summary
 
@@ -46,11 +46,6 @@ readxl package to read excel data.
 ``` r
 library(tidyquant)
 library(tidyverse)
-```
-
-    ## Warning: package 'ggplot2' was built under R version 4.1.0
-
-``` r
 library(httr)
 library(readxl)
 ```
@@ -108,6 +103,10 @@ from FRED.
 labor_mkt_all <- yellen_labor_mkt_symbols %>% 
   tq_get(get = "economic.data", from = START)
 ```
+
+    ## Registered S3 method overwritten by 'tune':
+    ##   method                   from   
+    ##   required_pkgs.model_spec parsnip
 
 ## Transform data
 
