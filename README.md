@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2021-11-06
+Updated: 2021-12-04
 
 ## Summary
 
@@ -107,45 +107,6 @@ labor_mkt_all <- yellen_labor_mkt_symbols %>%
     ## Registered S3 method overwritten by 'tune':
     ##   method                   from   
     ##   required_pkgs.model_spec parsnip
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
-
-    ## Warning: `type_convert()` only converts columns of type 'character'.
-    ## - `df` has no columns of type 'character'
 
 ## Transform data
 
