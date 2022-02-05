@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2022-01-08
+Updated: 2022-02-05
 
 ## Summary
 
@@ -33,7 +33,7 @@ as it is said to be more closely related to wage than headline
 
 ## Libraries
 
-I use tq\_get function from tidyquant package to get tidy data from
+I use tq_get function from tidyquant package to get tidy data from
 [Federal Reserve Bank of St. Louis
 (FRED)](https://fred.stlouisfed.org/). And some of my self-made
 functions depend on tidyquant package.
@@ -93,10 +93,10 @@ limits, to plot later.
 ``` r
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2021-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2022-12-01"))
 ```
 
-Now I can use tq\_get function from tidyquant package to download data
+Now I can use tq_get function from tidyquant package to download data
 from FRED.
 
 ``` r
@@ -112,7 +112,7 @@ labor_mkt_all <- yellen_labor_mkt_symbols %>%
 
 Employment cost index is the only quarterly data, and all the others are
 monthly data. I transform Employment cost index to year-over-year growth
-rates, and all the others to tsibble (tbl\_ts class).
+rates, and all the others to tsibble (tbl_ts class).
 
 ``` r
 # transform Employment cost index, quarterly data to YoY
@@ -165,7 +165,7 @@ There is one datum I can’t get from
 Tracker](https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx).
 Unfortunately I could not find API to get data. So, initially I manually
 downloaded an excel file, transformed it into a csv file, and used
-read\_csv to read.
+read_csv to read.
 
 Later, I found [“Read Excel file from a URL using the readxl
 package”](https://stackoverflow.com/questions/41368628/read-excel-file-from-a-url-using-the-readxl-package)
@@ -195,8 +195,8 @@ wage_tracker <- wage_tracker %>%
 ## Combine data
 
 I combine transformed data with not-transformed data, and get tidy data.
-As `bind_rows` function drops index necessary to tbl\_ts class, I have
-to transform tsibble to tibble.
+As `bind_rows` function drops index necessary to tbl_ts class, I have to
+transform tsibble to tibble.
 
 ``` r
 labor_mkt <- labor_mkt_m %>% 
