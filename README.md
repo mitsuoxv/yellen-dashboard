@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2022-03-05
+Updated: 2022-04-02
 
 ## Summary
 
@@ -103,10 +103,6 @@ from FRED.
 labor_mkt_all <- yellen_labor_mkt_symbols %>% 
   tq_get(get = "economic.data", from = START)
 ```
-
-    ## Registered S3 method overwritten by 'tune':
-    ##   method                   from   
-    ##   required_pkgs.model_spec parsnip
 
 ## Transform data
 
