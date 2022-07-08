@@ -14,7 +14,7 @@ Mitsuo Shiota
 -   [Prepare for the plot](#prepare-for-the-plot)
 -   [Dashboard](#dashboard)
 
-Updated: 2022-05-07
+Updated: 2022-07-09
 
 ## Summary
 
@@ -46,19 +46,7 @@ readxl package to read excel data.
 ``` r
 library(tidyquant)
 library(tidyverse)
-```
-
-    ## Warning: package 'ggplot2' was built under R version 4.2.0
-
-    ## Warning: package 'dplyr' was built under R version 4.2.0
-
-``` r
 library(httr)
-```
-
-    ## Warning: package 'httr' was built under R version 4.2.0
-
-``` r
 library(readxl)
 ```
 
