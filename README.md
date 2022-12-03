@@ -3,22 +3,22 @@ Yellen dashboard
 Mitsuo Shiota
 2019-03-19
 
--   <a href="#summary" id="toc-summary">Summary</a>
--   <a href="#libraries" id="toc-libraries">Libraries</a>
--   <a href="#self-made-tqr-package"
-    id="toc-self-made-tqr-package">Self-made tqr package</a>
--   <a href="#get-data-from-fred" id="toc-get-data-from-fred">Get data from
-    FRED</a>
--   <a href="#transform-data" id="toc-transform-data">Transform data</a>
--   <a href="#get-data-from-atlanta-fed-wage-growth-trucker"
-    id="toc-get-data-from-atlanta-fed-wage-growth-trucker">Get data from
-    Atlanta Fed Wage Growth Trucker</a>
--   <a href="#combine-data" id="toc-combine-data">Combine data</a>
--   <a href="#prepare-for-the-plot" id="toc-prepare-for-the-plot">Prepare
-    for the plot</a>
--   <a href="#dashboard" id="toc-dashboard">Dashboard</a>
+- <a href="#summary" id="toc-summary">Summary</a>
+- <a href="#libraries" id="toc-libraries">Libraries</a>
+- <a href="#self-made-tqr-package"
+  id="toc-self-made-tqr-package">Self-made tqr package</a>
+- <a href="#get-data-from-fred" id="toc-get-data-from-fred">Get data from
+  FRED</a>
+- <a href="#transform-data" id="toc-transform-data">Transform data</a>
+- <a href="#get-data-from-atlanta-fed-wage-growth-trucker"
+  id="toc-get-data-from-atlanta-fed-wage-growth-trucker">Get data from
+  Atlanta Fed Wage Growth Trucker</a>
+- <a href="#combine-data" id="toc-combine-data">Combine data</a>
+- <a href="#prepare-for-the-plot" id="toc-prepare-for-the-plot">Prepare
+  for the plot</a>
+- <a href="#dashboard" id="toc-dashboard">Dashboard</a>
 
-Updated: 2022-11-05
+Updated: 2022-12-03
 
 ## Summary
 
