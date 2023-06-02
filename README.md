@@ -18,7 +18,7 @@ Mitsuo Shiota
   for the plot</a>
 - <a href="#dashboard" id="toc-dashboard">Dashboard</a>
 
-Updated: 2023-05-06
+Updated: 2023-06-03
 
 ## Summary
 
@@ -49,19 +49,7 @@ readxl package to read excel data.
 
 ``` r
 library(tidyquant)
-```
-
-    ## Warning: package 'tidyquant' was built under R version 4.3.0
-
-    ## Warning: package 'quantmod' was built under R version 4.3.0
-
-``` r
 library(tidyverse)
-```
-
-    ## Warning: package 'ggplot2' was built under R version 4.3.0
-
-``` r
 library(httr)
 library(readxl)
 ```
