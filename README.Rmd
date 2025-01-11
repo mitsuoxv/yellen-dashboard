@@ -74,7 +74,7 @@ I set the first date to get data as START. I also set XLIM, x axis limits, to pl
 ```{r set_START}
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2024-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2025-12-01"))
 
 ```
 
