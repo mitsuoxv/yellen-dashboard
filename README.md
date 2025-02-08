@@ -14,7 +14,7 @@ Mitsuo Shiota
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2025-01-11
+Updated: 2025-02-08
 
 ## Summary
 
@@ -93,7 +93,7 @@ limits, to plot later.
 ``` r
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2024-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2025-12-01"))
 ```
 
 Now I can use tq_get function from tidyquant package to download data
