@@ -14,7 +14,7 @@ Mitsuo Shiota
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2025-09-12
+Updated: 2025-11-21
 
 ## Summary
 
@@ -266,6 +266,9 @@ labor_mkt %>%
     y = "")
 ```
 
+    ## Warning: Removed 33 rows containing missing values or values outside the scale range
+    ## (`geom_line()`).
+
 ![](README_files/figure-gfm/plot-1.png)<!-- -->
 
 Save plot in output/Yellen.pdf.
@@ -274,5 +277,8 @@ Save plot in output/Yellen.pdf.
 ggsave(filename = "output/Yellen.pdf",
        width = 8, height = 16, units = "in", dpi = 300)
 ```
+
+    ## Warning: Removed 33 rows containing missing values or values outside the scale range
+    ## (`geom_line()`).
 
 EOL
