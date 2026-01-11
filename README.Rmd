@@ -146,7 +146,7 @@ url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
-res <- read_excel(tf, col_names = FALSE, na = c(".", ""), skip = 2)
+res <- read_excel(tf, sheet = "data_overall", col_names = FALSE, na = c(".", ""), skip = 2)
 
 names(res)[1:2] <- c("date", "price")
 res$date <- as.Date(res$date)

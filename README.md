@@ -14,7 +14,7 @@ Mitsuo Shiota
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2025-12-17
+Updated: 2026-01-11
 
 ## Summary
 
@@ -175,7 +175,7 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 ```
 
 ``` r
-res <- read_excel(tf, col_names = FALSE, na = c(".", ""), skip = 2)
+res <- read_excel(tf, sheet = "data_overall", col_names = FALSE, na = c(".", ""), skip = 2)
 
 names(res)[1:2] <- c("date", "price")
 res$date <- as.Date(res$date)
