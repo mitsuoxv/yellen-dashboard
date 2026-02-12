@@ -74,7 +74,7 @@ I set the first date to get data as START. I also set XLIM, x axis limits, to pl
 ```{r set_START}
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2025-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2026-12-01"))
 
 ```
 
@@ -135,14 +135,14 @@ ceu <- labor_mkt_m %>%
 
 ```
 
-## Get data from Atlanta Fed Wage Growth Trucker
+## Get data from Atlanta Fed Wage Growth Tracker
 
 There is one datum I can't get from [FRED](https://fred.stlouisfed.org/), that is [Atlanta Fed Wage Tracker](https://www.frbatlanta.org/chcs/wage-growth-tracker.aspx). Unfortunately I could not find API to get data. So, initially I manually downloaded an excel file,  transformed it into a csv file, and used read_csv to read.
 
 Later, I found ["Read Excel file from a URL using the readxl package"](https://stackoverflow.com/questions/41368628/read-excel-file-from-a-url-using-the-readxl-package) in StackOverflow. Now, I automate the reading process, though it is awkward. If Atlanta Fed changes something, this part will fail.
 
 ```{r Atlanta, results="hide", message=FALSE}
-url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
+url <- "https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 

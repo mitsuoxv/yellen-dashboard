@@ -9,12 +9,12 @@ Mitsuo Shiota
 - [Get data from FRED](#get-data-from-fred)
 - [Transform data](#transform-data)
 - [Get data from Atlanta Fed Wage Growth
-  Trucker](#get-data-from-atlanta-fed-wage-growth-trucker)
+  Tracker](#get-data-from-atlanta-fed-wage-growth-tracker)
 - [Combine data](#combine-data)
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2026-01-11
+Updated: 2026-02-12
 
 ## Summary
 
@@ -93,7 +93,7 @@ limits, to plot later.
 ``` r
 START = "2006-01-01"
 
-XLIM <- c(as.Date("2008-01-01"), as.Date("2025-12-01"))
+XLIM <- c(as.Date("2008-01-01"), as.Date("2026-12-01"))
 ```
 
 Now I can use tq_get function from tidyquant package to download data
@@ -118,7 +118,24 @@ eci <- labor_mkt_all %>%
   as_tsibble(key = "symbol", index = "date") %>% 
   tq_gr(n = 4) %>% 
   mutate(date = as.Date(date))
+```
 
+    ## Warning: There was 1 warning in `dplyr::mutate()`.
+    ## ℹ In argument: `dplyr::across(...)`.
+    ## ℹ In group 1: `symbol = "ECIALLCIV"`.
+    ## Caused by warning:
+    ## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+    ## Supply arguments directly to `.fns` through an anonymous function instead.
+    ## 
+    ##   # Previously
+    ##   across(a:b, mean, na.rm = TRUE)
+    ## 
+    ##   # Now
+    ##   across(a:b, \(x) mean(x, na.rm = TRUE))
+    ## ℹ The deprecated feature was likely used in the tqr package.
+    ##   Please report the issue at <https://github.com/mitsuoxv/tqr/issues>.
+
+``` r
 # Others are monthly data, transformed to tsibble
 labor_mkt_m <- labor_mkt_all %>% 
   filter(symbol != "ECIALLCIV") %>% 
@@ -154,7 +171,7 @@ ceu <- labor_mkt_m %>%
   tq_ma(n = 3)
 ```
 
-## Get data from Atlanta Fed Wage Growth Trucker
+## Get data from Atlanta Fed Wage Growth Tracker
 
 There is one datum I can’t get from
 [FRED](https://fred.stlouisfed.org/), that is [Atlanta Fed Wage
@@ -169,7 +186,7 @@ in StackOverflow. Now, I automate the reading process, though it is
 awkward. If Atlanta Fed changes something, this part will fail.
 
 ``` r
-url <- "https://www.frbatlanta.org/-/media/documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
+url <- "https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 ```
