@@ -14,7 +14,7 @@ Mitsuo Shiota
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2026-07-03
+Updated: 2026-08-10
 
 ## Summary
 
@@ -45,6 +45,11 @@ readxl package to read excel data.
 
 ``` r
 library(tidyquant)
+```
+
+    ## Warning: package 'zoo' was built under R version 4.6.1
+
+``` r
 library(tidyverse)
 library(httr)
 library(readxl)
