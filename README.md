@@ -14,7 +14,7 @@ Mitsuo Shiota
 - [Prepare for the plot](#prepare-for-the-plot)
 - [Dashboard](#dashboard)
 
-Updated: 2026-10-03
+Updated: 2026-11-07
 
 ## Summary
 
@@ -186,7 +186,7 @@ in StackOverflow. Now, I automate the reading process, though it is
 awkward. If Atlanta Fed changes something, this part will fail.
 
 ``` r
-url <- "https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/datafiles/chcs/wage-growth-tracker/wage-growth-data.xlsx"
+url <- "https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/research-and-data/data/wage-growth-tracker/wage-growth-data.xlsx"
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 ```
